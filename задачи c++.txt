@@ -1,0 +1,55 @@
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str_1 = "AaBbCcDd";
+    std::string uppercase;
+    std::string lowercase;
+
+    for (size_t i = 0; i< str_1.length(); i+=2) {
+            uppercase += str_1[i];
+    }
+    for (size_t i = 1; i < str_1.length(); i += 2) {
+        lowercase += str_1[i];
+    }
+    
+
+    std::cout << uppercase << std::endl; 
+    std::cout << lowercase << std::endl;  
+
+    return 0;
+}
+
+
+//====================================
+
+
+#include <iostream>
+#include <vector>
+#include <string>
+
+int main() {
+    std::vector<std::string> a = {"a", "1", "b", "2", "c", "3"};
+    std::vector<std::string> b;
+    std::vector<std::string> c;
+
+    for (size_t i = 0; i < a.size(); i += 2) {
+        b.push_back(a[i]);
+    }
+    for (size_t i = 1; i < a.size(); i += 2) {
+        c.push_back(a[i]);
+    }
+
+    a.clear();
+
+    for (const auto& elem : b) {
+        std::cout << elem << " ";
+    }
+    std::cout << ", ";
+    for (const auto& elem : c) {
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
