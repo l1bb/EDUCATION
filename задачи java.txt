@@ -1,0 +1,52 @@
+public class Main {
+    public static void main(String[] args) {
+        String a = "aAbBcC";
+        StringBuilder b = new StringBuilder();
+        StringBuilder c = new StringBuilder();
+
+        for (int i = 0; i < a.length(); i++) {
+            if (i % 2 == 0) {
+                b.append(a.charAt(i));
+            } else {
+                c.append(a.charAt(i));
+            }
+        }
+
+        System.out.println(b.toString());
+        System.out.println(c.toString());
+    }
+}
+
+
+
+
+//=================================================
+
+
+
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        List<String> a = new ArrayList<>(Arrays.asList("a", "1", "b", "2", "c", "3"));
+        List<String> b = new ArrayList<>();
+        List<String> c = new ArrayList<>();
+
+        for (int i = 0; i < a.size(); i++) {
+            if (i % 2 == 0) {
+                b.add(a.get(i));
+            } else {
+                c.add(a.get(i));
+            }
+        }
+
+        a = null; // equivalent to del a in Python
+
+        System.out.println(String.join(", ", b));
+        System.out.println();
+        System.out.println(String.join(", ", c));
+    }
+}
