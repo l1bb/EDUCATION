@@ -1,0 +1,95 @@
+// Класс узла односвязного списка
+class Node {
+    int data; // Данные, хранимые в узле
+    Node next; // Ссылка на следующий узел
+
+    Node(int data) {
+        this.data = data;
+        this.next = null; // Изначально следующий узел не задан
+    }
+}
+//Реализация односвзяного  списка 
+//1 способ 
+// Класс односвязного списка
+class LinkedList {
+    Node head; 
+
+    public void add(int newData) {
+        Node newNode = new Node(newData); 
+        newNode.next = head; 
+        head = newNode;
+    }
+
+    public void printList() {
+        Node current = head;
+        while (current != null) {
+            System.out.print(current.data + " -> ");
+            current = current.next;
+        }
+        System.out.println("NULL");
+    }
+
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+
+        
+        list.add(10);
+        list.add(20);
+        list.add(30);
+
+        
+        list.printList(); // Вывод: 30 -> 20 -> 10 -> NULL
+    }
+}
+
+
+//====================================================================
+//2 способ
+
+
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) { val = x; }
+}
+
+class ReverseLinkedList {
+
+    public static ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode current = head;
+
+        while (current != null) {
+            ListNode nextTemp = current.next; 
+            current.next = prev;              
+            prev = current;                    
+            current = nextTemp;               
+        }
+
+        return prev;
+    }
+
+    public static void printList(ListNode head) {
+        while (head != null) {
+            System.out.print(head.val + " -> ");
+            head = head.next;
+        }
+        System.out.println("NULL");
+    }
+
+    public static void main(String[] args) {
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(3);
+        head.next.next.next = new ListNode(4);
+        head.next.next.next.next = new ListNode(5);
+
+        System.out.print("Исходный список: ");
+        printList(head);
+
+        ListNode reversedHead = reverseList(head);
+
+        System.out.print("Развернутый список: ");
+        printList(reversedHead);
+    }
+}
