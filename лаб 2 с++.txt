@@ -1,0 +1,109 @@
+//реализация односвязного списка 
+//1 способ
+template< typename T >
+class List {
+private:
+    struct Node;
+
+public:
+    // Класс итератора односвязного списка
+    class Iterator {
+    };
+
+public:
+    List();
+
+    ~List();
+
+    
+    void append( const T& t );
+
+    void remove();
+
+    T head() const;
+
+    
+    Iterator begin() const;
+
+    
+    Iterator end() const;
+
+    size_t size() const;
+
+private:
+    struct Node {
+        Node() : m_next( NULL ) { }
+
+        Node( const T& t ) : m_t( t ), m_next( NULL ) { }
+
+        
+        T m_t;
+
+        
+        Node* m_next;
+    };
+
+    Node* m_head;
+};
+
+
+
+//=====================================================================
+//2 способ
+
+
+#include <iostream>
+
+
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev = nullptr;
+        ListNode* current = head;
+
+        while (current != nullptr) {
+            ListNode* nextTemp = current->next; 
+            current->next = prev;               
+            prev = current;                     
+            current = nextTemp;                
+        }
+
+        return prev; 
+    }
+};
+
+
+void printList(ListNode* head) {
+    while (head != nullptr) {
+        std::cout << head->val << " -> ";
+        head = head->next;
+    }
+    std::cout << "NULL" << std::endl;
+}
+
+
+int main() {
+    setlocale(LC_ALL, "");
+    ListNode* head = new ListNode(1);
+    head->next = new ListNode(2);
+    head->next->next = new ListNode(3);
+    head->next->next->next = new ListNode(4);
+    head->next->next->next->next = new ListNode(5);
+
+    std::cout << "Исходный список: ";
+    printList(head);
+
+    Solution solution;
+    ListNode* reversedHead = solution.reverseList(head);
+
+    std::cout << "Развернутый список: ";
+    printList(reversedHead);
+
+    return 0;
+}
