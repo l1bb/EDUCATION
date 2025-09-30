@@ -1,0 +1,98 @@
+//Реализация бинарных куч на с++
+//1 способ
+
+
+#include <iostream>
+#include <queue> // Для std::priority_queue
+#include <vector>
+
+int main() {
+    // Создание max-кучи 
+    std::priority_queue<int> max_heap;
+    max_heap.push(10);
+    max_heap.push(5);
+    max_heap.push(15);
+    max_heap.push(2);
+
+    std::cout << "Max-куча: ";
+    while (!max_heap.empty()) {
+        std::cout << max_heap.top() << " "; 
+        max_heap.pop();                    
+    }
+    std::cout << std::endl; 
+
+    // Создание min-кучи 
+    std::priority_queue<int, std::vector<int>, std::greater<int>> min_heap;
+    min_heap.push(10);
+    min_heap.push(5);
+    min_heap.push(15);
+    min_heap.push(2);
+
+    std::cout << "Min-куча: ";
+    while (!min_heap.empty()) {
+        std::cout << min_heap.top() << " ";
+        min_heap.pop();
+    }
+    std::cout << std::endl; 
+
+    return 0;
+}
+
+//======================================================================================================
+
+//2 способ
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm> // Для make_heap, push_heap, pop_heap
+
+int main() {
+    // Создаем вектор для хранения элементов кучи
+    std::vector<int> heap;
+
+    // Добавление элементов
+    heap.push_back(10);
+    std::push_heap(heap.begin(), heap.end()); // Создает кучу для максимума
+
+    heap.push_back(30);
+    std::push_heap(heap.begin(), heap.end());
+
+    heap.push_back(20);
+    std::push_heap(heap.begin(), heap.end());
+
+    heap.push_back(5);
+    std::push_heap(heap.begin(), heap.end());
+
+   
+
+    std::cout << "Элементы в куче (верхний - максимальный): ";
+    for (int val : heap) {
+        std::cout << val << " ";
+    }
+    std::cout << std::endl;
+
+    // Извлечение элементов
+    std::pop_heap(heap.begin(), heap.end());
+    int max_val = heap.back(); 
+    heap.pop_back();       
+
+    std::cout << max_val << std::endl;
+
+    std::pop_heap(heap.begin(), heap.end());
+    max_val = heap.back();
+    heap.pop_back();
+
+    std::cout << max_val << std::endl;
+
+    // Пример использования make_heap для существующего вектора
+    std::vector<int> data = {1, 5, 2, 8, 3, 4};
+    std::make_heap(data.begin(), data.end()); // Создает кучу для максимума из data
+
+    for (int val : data) {
+        std::cout << val << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
