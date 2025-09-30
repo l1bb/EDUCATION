@@ -1,0 +1,219 @@
+// реализаия двоичной кучи на java 
+// 1 способ
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+
+public class BinaryHeap<T extends Comparable<T>> {
+
+    private List<T> heap;
+
+    public BinaryHeap() {
+        heap = new ArrayList<>();
+    }
+
+    // Получить индекс родителя
+    private int getParentIndex(int i) {
+        return (i - 1) / 2;
+    }
+
+    // Получить индекс левого потомка
+    private int getLeftChildIndex(int i) {
+        return 2 * i + 1;
+    }
+
+    // Получить индекс правого потомка
+    private int getRightChildIndex(int i) {
+        return 2 * i + 2;
+    }
+
+    // Обменять два элемента местами
+    private void swap(int i, int j) {
+        T temp = heap.get(i);
+        heap.set(i, heap.get(j));
+        heap.set(j, temp);
+    }
+
+    // Просеять элемент вниз, чтобы сохранить инвариант кучи
+    private void siftDown(int index) {
+        int smallest = index;
+        int left = getLeftChildIndex(index);
+        int right = getRightChildIndex(index);
+        int size = heap.size();
+
+        if (left < size && heap.get(left).compareTo(heap.get(smallest)) < 0) {
+            smallest = left;
+        }
+        if (right < size && heap.get(right).compareTo(heap.get(smallest)) < 0) {
+            smallest = right;
+        }
+
+        if (smallest != index) {
+            swap(index, smallest);
+            siftDown(smallest);
+        }
+    }
+
+    // Просеять элемент вверх, чтобы сохранить инвариант кучи
+    private void siftUp(int index) {
+        while (index > 0 && heap.get(index).compareTo(heap.get(getParentIndex(index))) < 0) {
+            swap(index, getParentIndex(index));
+            index = getParentIndex(index);
+        }
+    }
+
+    // Добавить элемент в кучу
+    public void add(T item) {
+        heap.add(item);
+        siftUp(heap.size() - 1);
+    }
+
+    // Извлечь минимальный элемент из кучи
+    public T extractMin() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Heap is empty");
+        }
+        if (heap.size() == 1) {
+            return heap.remove(0);
+        }
+
+        T min = heap.get(0);
+        heap.set(0, heap.remove(heap.size() - 1));
+        siftDown(0);
+        return min;
+    }
+
+    // Проверить, пуста ли куча
+    public boolean isEmpty() {
+        return heap.isEmpty();
+    }
+
+    // Получить размер кучи
+    public int size() {
+        return heap.size();
+    }
+
+    // Получить минимальный элемент без извлечения
+    public T peekMin() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Heap is empty");
+        }
+        return heap.get(0);
+    }
+
+    public static void main(String[] args) {
+        BinaryHeap<Integer> minHeap = new BinaryHeap<>();
+        minHeap.add(5);
+        minHeap.add(3);
+        minHeap.add(8);
+        minHeap.add(1);
+        minHeap.add(6);
+
+        System.out.println("Min element: " + minHeap.peekMin()); // Вывод: 1
+
+        while (!minHeap.isEmpty()) {
+            System.out.print(minHeap.extractMin() + " "); // Вывод: 1 3 5 6 8
+        }
+        System.out.println();
+    }
+}
+
+
+//=================================================================================================================================
+// 2способ
+
+public class BinaryHeap {
+
+    private int[] elements;
+
+    public BinaryHeap(int[] elements) {
+        this.elements = elements;
+        for (int i = elements.length / 2 - 1; i >= 0; --i) {
+            siftDown(i);
+        }
+    }
+
+    public void add(int element) {
+        int[] newElements = new int[elements.length + 1];
+        System.arraycopy(elements, 0, newElements, 0, elements.length);
+        newElements[newElements.length - 1] = element;
+        elements = newElements;
+
+        siftUp(elements.length - 1);
+    }
+
+    public int extractMax() {
+        assert !isEmpty();
+
+        int result = elements[0];
+        elements[0] = elements[elements.length - 1];
+        deleteLast();
+
+        if (!isEmpty()) {
+            siftDown(0);
+        }
+
+        return result;
+    }
+
+    public boolean isEmpty() {
+        return elements.length == 0;
+    }
+
+    private void deleteLast() {
+        if (elements.length > 1) {
+            int[] newElements = new int[elements.length - 1];
+            System.arraycopy(elements, 0, newElements, 0, elements.length - 1);
+            elements = newElements;
+        } else {
+            elements = new int[0];
+        }
+    }
+
+    private void siftDown(int i) {
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+
+    int largest = i;
+    if (left < elements.length && elements[left] > elements[i]) {
+        largest = left;
+    }
+    if (right < elements.length && elements[right] > elements[largest]) { 
+        largest = right;
+    }
+    if (largest != i) {
+        swap(i, largest);
+        siftDown(largest);
+    }
+}
+
+    }
+
+    
+    private void siftUp(int i) {
+        while (i > 0) {
+            int parent = (i - 1) / 2;
+            if (elements[i] < elements[parent])
+                return;
+            swap(i, parent);
+            i = parent;
+        }
+    }
+
+
+
+
+    private void swap(int index1, int index2) {
+        int temp = elements[index1];
+        elements[index1] = elements[index2];
+        elements[index2] = temp;
+    }
+
+    public int[] getElements() {
+        int[] elementsCopy = new int[elements.length];
+        System.arraycopy(elements, 0, elementsCopy, 0, elements.length);
+        return elementsCopy;
+    }
+
+}
