@@ -1,0 +1,71 @@
+//примеры реализации графа для оптимизации на java
+//1 пример
+import java.util.ArrayList;
+import java.util.List;
+
+public class Graph {
+    private int V; // число вершин
+    private List<List<Integer>> adj; // списки смежности
+
+    public Graph(int V) {
+        this.V = V;
+        adj = new ArrayList<>();
+        for (int i = 0; i < V; i++) {
+            adj.add(new ArrayList<>());
+        }
+    }
+
+    public void addEdge(int u, int v) {
+        adj.get(u).add(v);
+        // Для неориентированного графа: adj.get(v).add(u);
+    }
+
+    public void printGraph() {
+        for (int i = 0; i < V; i++) {
+            System.out.print(i + ": ");
+            for (int v : adj.get(i)) {
+                System.out.print(v + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        Graph g = new Graph(4);
+        g.addEdge(0, 1);
+        g.addEdge(0, 2);
+        g.addEdge(1, 2);
+        g.addEdge(2, 3);
+
+        g.printGraph();
+    }
+}
+
+//=============================================================================================
+//2 пример 
+public class Graph {
+    private int V; // число вершин
+    private int[][] matrix; // матрица смежности
+
+    public Graph(int V) {
+        this.V = V;
+        matrix = new int[V][V];
+    }
+
+    public void addEdge(int u, int v) {
+        matrix[u][v] = 1;
+        // Для неориентированного графа: matrix[v][u] = 1;
+    }
+
+    public void printGraph() {
+        for (int i = 0; i < V; i++) {
+            for (int j = 0; j < V; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        Graph g = new Graph(4);
+
