@@ -1,0 +1,76 @@
+//примеры реализации графа для оптимизации на с++
+//1 пример
+#include <iostream>
+#include <vector>
+
+class Graph {
+public:
+    int V; // число вершин
+    std::vector<std::vector<int>> adj; // списки смежности
+
+    Graph(int V) : V(V) {
+        adj.resize(V);
+    }
+
+    void addEdge(int u, int v) {
+        adj[u].push_back(v);
+        // Для ориентированного графа
+        // Для неориентированного: adj[v].push_back(u);
+    }
+
+    void print() {
+        for (int i = 0; i < V; ++i) {
+            std::cout << i << ": ";
+            for (int v : adj[i]) {
+                std::cout << v << " ";
+            }
+            std::cout << "\n";
+        }
+    }
+};
+
+int main() {
+    Graph g(4);
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1, 2);
+    g.addEdge(2, 3);
+
+    g.print();
+    return 0;
+}
+
+
+//===========================================================================
+//второй пример
+#include <iostream>
+#include <vector>
+
+class Graph {
+public:
+    int V; // число вершин
+    std::vector<std::vector<int>> matrix; // матрица смежности
+
+    Graph(int V) : V(V) {
+        matrix.resize(V, std::vector<int>(V, 0));
+    }
+
+    void addEdge(int u, int v) {
+        matrix[u][v] = 1;
+        // Для неориентированного графа: matrix[v][u] = 1;
+    }
+
+    void print() {
+        for (int i = 0; i < V; ++i) {
+            for (int j = 0; j < V; ++j) {
+                std::cout << matrix[i][j] << " ";
+            }
+            std::cout << "\n";
+        }
+    }
+};
+
+int main() {
+    Graph g(4);
+    g.addEdge(0, 1);
+    g.addEdge(
