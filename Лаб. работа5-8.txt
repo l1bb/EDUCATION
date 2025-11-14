@@ -1,18 +1,18 @@
-//Сортировка выбором
+//Р›Р°Р±РѕСЂР°С‚РѕСЂРЅР°СЏ СЂР°Р±РѕС‚Р° 5-8
+
+//СЃРѕСЂС‚РёСЂРѕРІРєР° РІС‹Р±РѕСЂРѕРј
 import java.util.Arrays;
 
 
 public class SelectionSort {
     
 	public static void selectionSort(int[] arr) {
-        // Проходим по всем элементам массива
+        
         
 	for (int i = 0; i < arr.length; i++) {
-            // Предполагаем, что первый элемент - минимальный
+            // РїРѕРёСЃРє РёРЅРґРµРєСЃР° РјРёРЅРёРјР°Р»СЊРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р° РІ РЅРµРѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅРЅРѕР№ С‡Р°СЃС‚Рё
             
 		int minIndex = i;
-            // Ищем минимальный элемент в оставшейся части массива
-            
 		for (int j = i + 1; j < arr.length; j++) {
                 
 		if (arr[j] < arr[minIndex]) {
@@ -22,12 +22,9 @@ public class SelectionSort {
 		}
             
 	}
-            // Меняем найденный минимальный элемент с первым элементом в неотсортированной части
             
-		int temp = arr[i];
-            
+		int temp = arr[i];       
 		arr[i] = arr[minIndex];
-            
 		arr[minIndex] = temp;
         
 	}
@@ -36,15 +33,13 @@ public class SelectionSort {
 
     
 public static void main(String[] args) {
-        // Создаем тестовый массив
-        
+       
 	int[] testArray = {64, 25, 12, 22, 11};
         
-	System.out.println("Исходный массив: " + Arrays.toString(testArray));
-        // Сортируем массив
+	System.out.println("РСЃС…РѕРґРЅС‹Р№ РјР°СЃСЃРёРІ: " + Arrays.toString(testArray));
         	selectionSort(testArray);
         
-	System.out.println("Отсортированный массив: " + Arrays.toString(testArray));
+	System.out.println("РћС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ РјР°СЃСЃРёРІ: " + Arrays.toString(testArray));
     
 	}
 
@@ -52,28 +47,25 @@ public static void main(String[] args) {
 
 
 
-//сортировка пузырьком
+//СЃРѕСЂС‚РёСЂРѕРІРєР° РѕР±РјРµРЅРѕРј(РїСѓР·С‹СЂСЊРєРѕРј)
 public class BubbleSort {
     
-    // Функция для сортировки массива методом пузырька
+    
     public static void bubbleSort(int arr[]) {
         int n = arr.length;
-        // Проходим по всем элементам массива
         for (int i = 0; i < n - 1; i++) {
-            // Последний элемент на каждой итерации уже на своем месте
+            // СЃСЂР°РІРЅРµРЅРёРµ СЃРѕСЃРµРґРЅРёС… СЌР»РµРјРµРЅС‚РѕРІ 
             for (int j = 0; j < n - i - 1; j++) {
-                // Сравниваем соседние элементы
                 if (arr[j] > arr[j + 1]) {
-                    // Меняем местами, если они стоят в неправильном порядке
+                    //РІСЂРµРјРµРЅРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ РѕР±РјРµРЅР°
                     int temp = arr[j];
                     arr[j] = arr[j + 1];
                     arr[j + 1] = temp;
                 }
             }
         }
-    }
-    
-    // Функция для вывода массива
+
+
     public static void printArray(int arr[]) {
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
@@ -84,78 +76,69 @@ public class BubbleSort {
     public static void main(String[] args) {
         int arr[] = {64, 34, 25, 12, 22, 11, 90};
         
-        System.out.println("Исходный массив: ");
+        System.out.println("РСЃС…РѕРґРЅС‹Р№ РјР°СЃСЃРёРІ: ");
         printArray(arr);
         
         bubbleSort(arr);
         
-        System.out.println("Отсортированный массив: ");
+        System.out.println("РћС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ РјР°СЃСЃРёРІ: ");
         printArray(arr);
     }
 }
 
 
-//сортировка вставками
+//СЃРѕСЂС‚РёСЂРѕРІРєР° РІСЃС‚Р°РІРєР°РјРё 
 public class InsertionSort {
-    // Метод для сортировки массива
     public static void insertionSort(int[] array) {
-        // Проходим по всем элементам массива, начиная со второго
         for (int i = 1; i < array.length; i++) {
-            int key = array[i]; // Текущий элемент, который нужно вставить
-            int j = i - 1; // Индекс предыдущего элемента
-            // Перемещаем элементы array[0..i-1], которые больше key
-            // на одну позицию вперед
+            int key = array[i]; //СЌР»РµРјРµРЅС‚ РєРѕС‚РѕСЂС‹Р№ РЅСѓР¶РЅРѕ  РІСЃС‚Р°РІРёС‚СЊ РІ РѕС‚СЃРѕСЂС‚РёСЂРѕСЂРІР°РЅРЅСѓСЋ С‡Р°СЃС‚СЊ
+            int j = i - 1; 
             while (j >= 0 && array[j] > key) {
                 array[j + 1] = array[j];
                 j = j - 1;
             }
-            array[j + 1] = key; // Вставляем key на правильное место
+            array[j + 1] = key; 
         }
     }
     
-    // Метод для вывода массива
     public static void printArray(int[] array) {
         for (int value : array) {
             System.out.print(value + " ");
         }
         System.out.println();
     }
-    
-    // Основной метод для тестирования
     public static void main(String[] args) {
         int[] array = {12, 11, 13, 5, 6};
-        System.out.println("Исходный массив:");
+        System.out.println("РСЃС…РѕРґРЅС‹Р№ РјР°СЃСЃРёРІ:");
         printArray(array);
         insertionSort(array);
-        System.out.println("Отсортированный массив:");
+        System.out.println("РћС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ РјР°СЃСЃРёРІ:");
         printArray(array);
     }
 }
 
 
-//сортировка слиянием 
+//СЃРѕСЂС‚РёСЂРѕРІРєР° СЃР»РёСЏРЅРёРµРј
 import java.util.*;
 
 public class MergeSort {
     
     public static List<Integer> mergeSort(List<Integer> arr) {
-        // Базовый случай: массив длиной 0 или 1 уже отсортирован
         if (arr.size() <= 1) {
             return new ArrayList<>(arr);
         }
         
-        // Находим середину массива
+        //РґРµР»РёРј РјР°СЃСЃРёРІ РЅР° РґРІРµ РїРѕР»РѕРІРёРЅС‹
         int mid = arr.size() / 2;
-        
-        // Делим массив на две части
+    
         List<Integer> left = new ArrayList<>(arr.subList(0, mid));
         List<Integer> right = new ArrayList<>(arr.subList(mid, arr.size()));
         
-        // Рекурсивно сортируем каждую часть
+        //СЂРµРєСЂСЃРёРІРЅРѕ СЃРѕСЂС‚РёСЂСѓРµРј РѕР±Рµ С‡Р°СЃС‚Рё
         left = mergeSort(left);
         right = mergeSort(right);
         
-        // Сливаем отсортированные части
+        // РѕР±СЉРµРґРёРЅСЏРµРј РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Рµ РїРѕР»РѕРІРёРЅС‹
         return merge(left, right);
     }
     
@@ -163,7 +146,6 @@ public class MergeSort {
         List<Integer> result = new ArrayList<>();
         int i = 0, j = 0;
         
-        // Пока есть элементы в обоих массивах
         while (i < left.size() && j < right.size()) {
             if (left.get(i) < right.get(j)) {
                 result.add(left.get(i));
@@ -174,7 +156,6 @@ public class MergeSort {
             }
         }
         
-        // Добавляем оставшиеся элементы
         while (i < left.size()) {
             result.add(left.get(i));
             i++;
@@ -188,34 +169,30 @@ public class MergeSort {
         return result;
     }
     
-    // Пример использования
     public static void main(String[] args) {
         List<Integer> array = Arrays.asList(38, 27, 43, 3, 9, 82, 10);
-        System.out.println("Исходный массив: " + array);
+        System.out.println("РСЃС…РѕРґРЅС‹Р№ РјР°СЃСЃРёРІ: " + array);
         List<Integer> sortedArray = mergeSort(array);
-        System.out.println("Отсортированный массив: " + sortedArray);
+        System.out.println("РћС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ РјР°СЃСЃРёРІ: " + sortedArray);
     }
 }
 
 
-//сортировка шелла
+//СЃРѕСЂС‚РёСЂРѕРІРєР° РЁРµР»Р»Р°
 import java.util.ArrayList;
 
 public class ShellSort {
     public static void shellSort(ArrayList<Integer> arr) {
         int n = arr.size();
-        // Start with a big gap, and reduce the gap
+        // РЅР°С‡РёРЅР°РµРј СЃ Р±РѕР»СЊС€РµР№ С‡Р°СЃС‚Рё Рё СЃРѕРєСЂР°С‰Р°РµРј РµРµ
         for (int gap = n / 2; gap > 0; gap /= 2) {
-            // Do a gapped insertion sort for this gap size.
             for (int i = gap; i < n; i++) {
-                // Add a[i] to the elements that have been gap sorted
-                // save a[i] in temp and make a hole at position i
+                // Р”РѕР±Р°РІР»СЏРµРј a[i] Рє СЌР»РµРјРµРЅС‚Р°Рј РѕС‚СЃРѕСЂС‚РёСЂРѕРІРЅР°РЅРѕРіРѕ РјР°СЃСЃРёРІР°
                 int temp = arr.get(i);
                 int j;
                 for (j = i; j >= gap && arr.get(j - gap) > temp; j -= gap) {
                     arr.set(j, arr.get(j - gap));
                 }
-                // put temp (the original a[i]) in its correct position
                 arr.set(j, temp);
             }
         }
@@ -229,7 +206,7 @@ public class ShellSort {
     }
 
     public static void main(String[] args) {
-        // Example usage
+        //РїСЂРёРјРµСЂ
         ArrayList<Integer> arr = new ArrayList<>();
         arr.add(12);
         arr.add(34);
@@ -245,51 +222,44 @@ public class ShellSort {
 }
 
 
-//быстрая сортировка
+//Р±С‹СЃС‚СЂР°СЏ СЃРѕСЂС‚РёСЂРѕРІРєР°
 import java.util.Arrays;
 
 public class QuickSort {
-    // Main method to run the sorting
     public static void main(String[] args) {
         int[] array = {10, 7, 8, 9, 1, 5};
-        System.out.println("Original array:");
+        System.out.println("РСЃС…РѕРґРЅС‹Р№ РјР°СЃСЃРёРІ:");
         printArray(array);
         quickSort(array, 0, array.length - 1);
-        System.out.println("\nSorted array:");
+        System.out.println("\nРћС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ РјР°СЃСЃРёРІ:");
         printArray(array);
     }
 
-    // Method to sort the array
+    // РјРµС‚РѕРґ СЃРѕСЂС‚РёСЂРѕРІРєРё
     public static void quickSort(int[] array, int low, int high) {
         if (low < high) {
-            // pi is the partitioning index, array[pi] is now at its correct position
             int pi = partition(array, low, high);
 
-            // Recursively sort elements before and after partitioning
+            //СЂРµРєСѓСЂСЃРёРІРЅР°СЏ СЃРѕСЂС‚РёСЂРѕРІРєР°
             quickSort(array, low, pi - 1);
             quickSort(array, pi + 1, high);
         }
     }
 
-    // Method to partition the array
     private static int partition(int[] array, int low, int high) {
         // Choose the rightmost element as the pivot
         int pivot = array[high];
-        int i = (low - 1); // Index of smaller element
+        int i = (low - 1); //РёРЅРґРµРєСЃ РЅР°РёРјРµРЅСЊС€РµРіРѕ СЌР»РµРјРµРЅС‚Р°
 
         for (int j = low; j < high; j++) {
-            // If the current element is smaller than or equal to the pivot
             if (array[j] <= pivot) {
                 i++;
 
-                // Swap array[i] and array[j]
                 int temp = array[i];
                 array[i] = array[j];
                 array[j] = temp;
             }
         }
-
-        // Swap array[i+1] and array[high] (the pivot)
         int temp = array[i + 1];
         array[i + 1] = array[high];
         array[high] = temp;
@@ -297,8 +267,7 @@ public class QuickSort {
         return i + 1;
     }
 
-    // Helper method to print the array
-    private static void printArray(int[] array) {
+        private static void printArray(int[] array) {
         for (int value : array) {
             System.out.print(value + " ");
         }
@@ -307,27 +276,27 @@ public class QuickSort {
 }
 
 
-//пирамидальная сортировка
+//РїРёСЂР°РјРёРґР°Р»СЊРЅР°СЏ СЃРѕСЂС‚РёСЂРѕРІРєР°
 public static void heapify(int[] arr, int n, int i) {
     int largest = i; // Initialize largest as root
     int left = 2 * i + 1; // left = 2*i + 1
     int right = 2 * i + 2; // right = 2*i + 2
 
-    // Check if left child is larger than root
+    // РџСЂРѕРІРµСЂСЊС‚Рµ, РЅРµ РїСЂРµРІС‹С€Р°РµС‚ Р»Рё Р»РµРІС‹Р№ РґРѕС‡РµСЂРЅРёР№ СЌР»РµРјРµРЅС‚ СЂР°Р·РјРµСЂ РєРѕСЂРЅСЏ
     if (left < n && arr[i] < arr[left])
         largest = left;
 
-    // Check if right child is larger than largest so far
+    // РџСЂРѕРІРµСЂСЊС‚Рµ, РЅРµ Р±РѕР»СЊС€Рµ Р»Рё СЂР°Р·РјРµСЂ РїСЂР°РІРѕРіРѕ РґРѕС‡РµСЂРЅРµРіРѕ СЌР»РµРјРµРЅС‚Р°, С‡РµРј СЃР°РјС‹Р№ Р±РѕР»СЊС€РѕР№ РЅР° РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚
     if (right < n && arr[largest] < arr[right])
         largest = right;
 
-    // Swap if needed
+    // РџСЂРё РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё РїРѕРјРµРЅСЏР№С‚Рµ РјРµСЃС‚Р°РјРё
     if (largest != i) {
         int temp = arr[i];
         arr[i] = arr[largest];
         arr[largest] = temp;
 
-        // Recursively heapify the affected sub-tree
+        // Р РµРєСѓСЂСЃРёРІРЅРѕ СЃСѓРіСЂРїРїРёСЂРѕРІР°С‚СЊ РїРѕРґРґРµСЂРµРІРѕ РІ РєСѓС‡Сѓ
         heapify(arr, n, largest);
     }
 }
@@ -335,57 +304,51 @@ public static void heapify(int[] arr, int n, int i) {
 public static void heapSort(int[] arr) {
     int n = arr.length;
 
-    // Build max heap
     for (int i = n / 2 - 1; i >= 0; i--)
         heapify(arr, n, i);
 
-    // One by one extract an element from heap
     for (int i = n - 1; i > 0; i--) {
-        // Move current root to end
+        // РџРµСЂРµРјРµСЃС‚РёС‚СЊ С‚РµРєСѓС‰РёР№ РІ РєРѕРЅРµС†
         int temp = arr[0];
         arr[0] = arr[i];
         arr[i] = temp;
-
-        // call max heapify on the reduced heap
         heapify(arr, i, 0);
     }
 }
 
 public static void main(String[] args) {
     int[] arr = {12, 11, 13, 5, 6, 7};
-    System.out.println("Original array: " + Arrays.toString(arr));
+    System.out.println("РСЃС…РѕРґРЅС‹Р№ РјР°СЃСЃРёРІ: " + Arrays.toString(arr));
 
     heapSort(arr);
 
-    System.out.println("Sorted array: " + Arrays.toString(arr));
+    System.out.println("РћС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ РјР°СЃСЃРёРІ: " + Arrays.toString(arr));
 }
 
 
 
-//последовательный поиск
+//РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅС‹Р№ РїРѕРёСЃРє
 public class Main {
-    // Linear search function
+    // Р¤СѓРЅРєС†РёСЏ Р»РёРЅРµР№РЅРѕРіРѕ РїРѕРёСЃРєР°
     public static int linearSearch(int[] arr, int size, int target) {
-        // Iterate through all elements of the array
         for (int i = 0; i < size; i++) {
-            // If the target element is found
             if (arr[i] == target) {
-                return i; // Return the index of the found element
+                return i;
             }
         }
-        return -1; // Return -1 if the element is not found
+        return -1;
     }
 
     public static void main(String[] args) {
-        // Create an array
+        // РЎРѕР·РґР°РЅРёРµ РјР°СЃСЃРёРІР°
         int[] array = {3, 5, 2, 7, 9, 1, 4};
-        int size = array.length; // Calculate the size of the array
+        int size = array.length; // Р’С‹С‡РёСЃР»РµРЅРёРµ СЂР°Р·РјРµСЂР° РјР°СЃСЃРёРІР°
         int target = 7; // Target value
 
-        // Call the search function
+        // Р’С‹Р·РѕРІ С„СѓРЅРєС†РёРё РїРѕРёСЃРєР°
         int result = linearSearch(array, size, target);
 
-        // Print the result
+        // СЂРµР·СѓР»СЊС‚Р°С‚
         if (result != -1) {
             System.out.println("Element found at position: " + result);
         } else {
@@ -395,27 +358,23 @@ public class Main {
 }
 
 
-//бинарный поиск
+//Р±РёРЅР°СЂРЅС‹Р№ РїРѕРёСЃРє
 public class BinarySearch {
-    // Метод для выполнения бинарного поиска
     public static int binarySearch(int[] array, int target) {
-        int left = 0; // Левая граница поиска
-        int right = array.length - 1; // Правая граница поиска
+        int left = 0; // Г‹ГҐГўГ Гї ГЈГ°Г Г­ГЁГ¶Г  ГЇГ®ГЁГ±ГЄГ 
+        int right = array.length - 1; 
         while (left <= right) {
-            // Находим середину массива
             int mid = left + (right - left) / 2;
-            // Проверяем средний элемент
             if (array[mid] == target) {
-                return mid; // Элемент найден
+                return mid;
             }
-            // Если искомый элемент меньше среднего
             if (array[mid] > target) {
-                right = mid - 1; // Перемещаемся влево
+                right = mid - 1;
             } else {
-                left = mid + 1; // Перемещаемся вправо
+                left = mid + 1;
             }
         }
-        return -1; // Элемент не найден
+        return -1; 
     }
 
     public static void main(String[] args) {
@@ -423,30 +382,30 @@ public class BinarySearch {
         int target = 7;
         int result = binarySearch(sortedArray, target);
         if (result != -1) {
-            System.out.println("Элемент найден на позиции: " + result);
+            System.out.println("Р­Р»РµРјРµРЅС‚ РЅР°Р№РґРµРЅ: " + result);
         } else {
-            System.out.println("Элемент не найден");
+            System.out.println("Р­Р»РµРјРµРЅС‚ РЅРµ РЅР°Р№РґРµРЅ");
         }
     }
 }
   
 
 
-//интерполирующий поиск
+//РёРЅС‚РµСЂРїРѕР»Р»РёСЂСѓСЋС‰РёР№ РїРѕРёСЃРє
 public class InterpolationSearch {
     public static int interpolationSearch(int[] arr, int lo, int hi, int x) {
         if (lo <= hi && x >= arr[lo] && x <= arr[hi]) {
             int pos = lo + ((hi - lo) * (x - arr[lo])) / (arr[hi] - arr[lo]);
 
-            // Condition when the target is found
+            // РЎРѕСЃС‚РѕСЏРЅРёРµ, РїСЂРё РєРѕС‚РѕСЂРѕРј СЌР»-РЅС‚ РЅР°Р№РґРµРЅ
             if (arr[pos] == x) {
                 return pos;
             }
-            // If x is larger, x is in the right subarray
+            // Р•СЃР»Рё x Р±РѕР»СЊС€Рµ, С‚Рѕ x РЅР°С…РѕРґРёС‚СЃСЏ РІ РїСЂР°РІРѕРј РїРѕРґРјР°СЃСЃРёРІРµ
             if (arr[pos] < x) {
                 return interpolationSearch(arr, pos + 1, hi, x);
             }
-            // If x is smaller, x is in the left subarray
+            // Р•СЃР»Рё x РјРµРЅСЊС€Рµ, С‚Рѕ x РЅР°С…РѕРґРёС‚СЃСЏ РІ Р»РµРІРѕРј РїРѕРґРјР°СЃСЃРёРІРµ
             if (arr[pos] > x) {
                 return interpolationSearch(arr, lo, pos - 1, x);
             }
@@ -455,13 +414,11 @@ public class InterpolationSearch {
     }
 }
 
-
-//посик по фибоначчи
+//РїРѕРёСЃРє С„РёР±РѕРЅР°С‡С‡Рё
 import java.util.*;
 
 public class FibonacciSearch {
 
-    // Функция для генерации чисел Фибоначчи
     public static int fibonacci(int n) {
         if (n <= 1)
             return n;
@@ -473,53 +430,44 @@ public class FibonacciSearch {
         return fib[n];
     }
 
-    // Функция поиска Фибоначчи
+   
     public static int fibonacciSearch(List<Integer> arr, int x) {
-        int n = arr.size();
-
-        // Находим наименьшее число Фибоначчи, большее или равное n
-        int fib_m2 = 0; // (m-2)'е число Фибоначчи
-        int fib_m1 = 1; // (m-1)'е число Фибоначчи
+        int n = arr.size()
+        int fib_m2 = 0; 
+        int fib_m1 = 1; 
         int fib_m = fib_m2 + fib_m1;
 
-        // Находим m такое, что F[m] >= n
         while (fib_m < n) {
             fib_m2 = fib_m1;
             fib_m1 = fib_m;
             fib_m = fib_m2 + fib_m1;
         }
-
-        // Маркеры для элементов, которые не входят в массив
         int offset = -1;
 
-        // Поиск
         while (fib_m > 1) {
-            // Проверяем возможный индекс
             int i = Math.min(offset + fib_m2, n - 1);
 
-            // Если x больше элемента, переходим к правому подмассиву
+            // РµСЃР»Рё x Р±РѕР»СЊС€Рµ РїРѕРґРјР°СЃСЃРёРІР°
             if (arr.get(i) < x) {
                 fib_m = fib_m1;
                 fib_m1 = fib_m2;
                 fib_m2 = fib_m - fib_m1;
                 offset = i;
             }
-            // Если x меньше элемента, переходим к левому подмассиву
+            
             else if (arr.get(i) > x) {
                 fib_m = fib_m2;
                 fib_m1 = fib_m1 - fib_m2;
                 fib_m2 = fib_m - fib_m1;
             }
-            // Элемент найден
             else
                 return i;
         }
 
-        // Проверяем последний элемент
         if (fib_m1 == 1 && offset + 1 < n && arr.get(offset + 1) == x)
             return offset + 1;
 
-        return -1; // Элемент не найден
+        return -1; 
     }
 
     public static void main(String[] args) {
@@ -527,8 +475,9 @@ public class FibonacciSearch {
         int x = 85;
         int result = fibonacciSearch(arr, x);
         if (result != -1)
-            System.out.println("Элемент найден на позиции: " + result);
+            System.out.println("Р­Р»РµРјРµРЅС‚ РЅР°Р№РґРµРЅ: " + result);
         else
-            System.out.println("Элемент не найден");
+            System.out.println("Р­Р»РµРјРµРЅС‚ РЅРµ РЅР°Р№РґРµРЅ");
     }
 }
+
