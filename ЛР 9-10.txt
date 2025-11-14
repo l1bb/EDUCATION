@@ -1,0 +1,217 @@
+#БЛОЧНАЯ СОРТИРОВКА
+def bucket_sort(arr):
+    # 1. Определить количество блоков
+    num_buckets = 10  # Можно настроить в зависимости от данных
+    buckets = [[] for _ in range(num_buckets)]
+
+    # 2. Распределить элементы по блокам
+    # Находим максимальное значение для нормализации
+    max_val = max(arr) if arr else 0
+    for val in arr:
+        # Помещаем элемент в соответствующий блок.
+        # Умножаем на num_buckets, чтобы получить правильный индекс
+        bucket_index = int((val / max_val) * (num_buckets - 1))
+        buckets[bucket_index].append(val)
+
+    # 3. Отсортировать каждый блок
+    for bucket in buckets:
+        bucket.sort()  # Используем стандартную сортировку Python для каждого блока
+
+    # 4. Объединить отсортированные блоки
+    sorted_arr = []
+    for bucket in buckets:
+        sorted_arr.extend(bucket)
+
+    return sorted_arr
+
+# Пример использования:
+data = [54, 44, 27, 79, 31, 10]
+print(bucket_sort(data))
+
+
+#БЛИННАЯ СОРТИРОВКА
+def flip(arr, i):
+    start = 0
+    while start < i:
+        arr[start], arr[i] = arr[i], arr[start]
+        start += 1
+        i -= 1
+
+def find_max_index(arr, n):
+    mi = 0
+    for i in range(n):
+        if arr[i] > arr[mi]:
+            mi = i
+    return mi
+
+def pancake_sort(arr):
+
+    curr_size = len(arr)
+    # Начинаем с полного массива и постепенно уменьшаем размер 
+    while curr_size > 1:
+        # Находим индекс максимального элемента в текущем несортированном префиксе
+        mi = find_max_index(arr, curr_size)
+
+        # Если максимальный элемент не находится в своей конечной позиции (на дне текущего префикса)
+        if mi != curr_size - 1:
+            # Сначала перемещаем максимальный элемент в начало (индекс 0)
+            flip(arr, mi)
+            # Затем перемещаем максимальный элемент на его правильную позицию (конец текущего префикса)
+            flip(arr, curr_size - 1)
+        
+        # Уменьшаем размер рассматриваемого (несортированного) списка
+        curr_size -= 1
+    return arr
+
+# Пример использования:
+my_list = [23, 10, 20, 11, 12, 6, 7]
+sorted_list = pancake_sort(my_list)
+print("Отсортированный массив:", sorted_list) # [6, 7, 10, 11, 12, 20, 23]
+
+
+#СОРТИРОВКА БУСИНАМИ
+def bead_sort(input_list):
+    # Проверяем, что все элементы списка - положительные целые числа
+    if not all(isinstance(x, int) and x >= 0 for x in input_list):
+        raise ValueError("Сортировка бусинами работает только с положительными целыми числами")
+
+    # Определяем максимальное число в списке
+    max_val = max(input_list)
+    list_len = len(input_list)
+
+    abacus = [[0] * max_val for _ in range(list_len)]
+    # Расставляем "бусины" в соответствии с входными числами
+    for i in range(list_len):
+        for j in range(input_list[i]):
+            abacus[i][j] = 1
+    # "Падение" бусин под действием гравитации
+    # Имитируем пересчет бусин по столбцам и их укладку снизу вверх
+    for j in range(max_val):
+        # Считаем количество бусин в текущем столбце
+        beads_in_column = sum(abacus[i][j] for i in range(list_len))
+        for i in range(list_len):
+            abacus[i][j] = 0
+
+        for i in range(list_len - 1, list_len - beads_in_column - 1, -1):
+            abacus[i][j] = 1
+    sorted_list = []
+    for i in range(list_len):
+        num_beads_in_row = sum(abacus[i])
+        sorted_list.append(num_beads_in_row)
+    return sorted_list
+# Пример использования:
+data = [5, 2, 8, 1, 9, 4]
+sorted_data = bead_sort(data)
+print(f"Исходный список: {data}")
+print(f"Отсортированный список: {sorted_data}")
+
+#ПОИСК СКАЧКАМИ
+import math
+
+def jump_search(arr, x):
+    #Реализует алгоритм поиска скачками для поиска элемента x в отсортированном массиве arr.
+    #Возвращает индекс элемента, если он найден, иначе -1.
+    n = len(arr)
+    # Определение размера блока (скачка) - обычно квадратный корень из размера массива
+    step = math.sqrt(n)
+    # Поиск блока, в котором может находиться элемент
+    prev = 0
+    while arr[int(min(step, n) - 1)] < x:
+        prev = step
+        step += math.sqrt(n)
+        if prev >= n:
+            return -1  # Элемент не найден
+    while arr[int(prev)] < x:
+        prev += 1
+        if prev == min(step, n):
+            return -1
+    # Если элемент найден
+    if arr[int(prev)] == x:
+        return int(prev)
+    return -1
+# Пример использования:
+arr = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610]
+x = 55
+
+result_index = jump_search(arr, x)
+
+if result_index != -1:
+    print(f"Элемент {x} найден по индексу: {result_index}")
+else:
+    print(f"Элемент {x} не найден в массиве")
+
+#ЭКСПОНЕНЦИАЛЬНЫЙ ПОИСК
+import bisect
+def exponential_search(arr, target):
+    #Реализует экспоненциальный поиск в отсортированном массиве.
+    n = len(arr)
+    # Базовый случай: если массив пуст
+    if n == 0:
+        return -1
+    # Если элемент находится на первой позиции
+    if arr[0] == target:
+        return 0
+    # Находим диапазон для бинарного поиска,
+    i = 1
+    while i < n and arr[i] <= target:
+        i *= 2
+    left = i // 2
+    right = min(i, n - 1)
+    idx = bisect.bisect_left(arr, target, left, right + 1)
+
+    if idx <= right and arr[idx] == target:
+        return idx
+    else:
+        return -1
+# --- Пример использования ---
+sorted_array = [2, 3, 4, 10, 40, 45, 55, 60, 75, 80, 90, 100, 120]
+target_element_1 = 40
+target_element_2 = 50  # Элемент, которого нет
+
+result_index_1 = exponential_search(sorted_array, target_element_1)
+result_index_2 = exponential_search(sorted_array, target_element_2)
+
+print(f"Массив: {sorted_array}")
+if result_index_1 != -1:
+    print(f"Элемент {target_element_1} найден по индексу {result_index_1}.")
+else:
+    print(f"Элемент {target_element_1} не найден.")
+
+if result_index_2 != -1:
+    print(f"Элемент {target_element_2} найден по индексу {result_index_2}.")
+else:
+    print(f"Элемент {target_element_2} не найден.")
+
+
+#ТЕРНАРНЫЙ ПОИСК
+def ternary_search_min(func, left, right, precision=1e-9):
+    """
+    Выполняет тернарный поиск для нахождения минимума унимодальной функции.
+    :param func: Унимодальная функция, для которой ищется минимум.
+    :param left: Левая граница интервала поиска.
+    :param right: Правая граница интервала поиска.
+    :param precision: Требуемая точность результата.
+    :return: Приблизительное значение x, при котором функция достигает минимума.
+    """
+    while abs(right - left) > precision:
+        # Делим интервал на три части
+        mid1 = left + (right - left) / 3
+        mid2 = right - (right - left) / 3
+
+        # Сравниваем значения функции в двух внутренних точках
+        if func(mid1) < func(mid2):
+            right = mid2
+        else:
+            left = mid1
+
+    # Когда интервал достаточно сузился, возвращаем его середину
+    return (left + right) / 2
+
+
+def my_function(x):
+    return (x - 2)**2 + 3
+# Задаем интервал поиска
+left_bound = -10
+right_bound = 10
+min_x = ternary_search_min(my_function, left_bound, right_bound)
+min_y = my_function(min_x)
